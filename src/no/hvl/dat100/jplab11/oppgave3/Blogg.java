@@ -1,50 +1,96 @@
 package no.hvl.dat100.jplab11.oppgave3;
 
+import java.util.Arrays;
+
 import no.hvl.dat100.jplab11.common.TODO;
 import no.hvl.dat100.jplab11.oppgave1.*;
 
 public class Blogg {
 
 	// TODO: objektvariable 
-
+	private Innlegg[] innleggstabell;
+	private int nesteledige;
+	private int antall;
+	
+	
+	
 	public Blogg() {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+		
+		innleggstabell = new Innlegg[20];
+		nesteledige = 0;
+		
 	}
 
 	public Blogg(int lengde) {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+		
+		innleggstabell = new Innlegg[lengde];
+		nesteledige = 0;
+		
 	}
 
 	public int getAntall() {
-		throw new UnsupportedOperationException(TODO.method());
+		
+		return antall;
+		
 	}
 	
 	public Innlegg[] getSamling() {
-		throw new UnsupportedOperationException(TODO.method());
-
+		
+		return innleggstabell;
+		
 	}
 	
 	public int finnInnlegg(Innlegg innlegg) {
 
-		throw new UnsupportedOperationException(TODO.method());
+		boolean funnet = false;
+		int pos = 0;
+		while(pos<nesteledige && !funnet) {
+			if (innleggstabell[pos].getId() == innlegg.getId()) {
+				funnet = true;
+			}else {
+				pos++;
+			}
+		}
+			if (funnet) {
+				return pos;
+			}else {
+				return -1;
+			}	
+		
 	}
 
 	public boolean finnes(Innlegg innlegg) {
-		throw new UnsupportedOperationException(TODO.method());
+		
+		int pos = finnInnlegg(innlegg);
+		if (pos >= 0) 
+			return true;
+		else
+			return false;		
 	}
 
 	public boolean ledigPlass() {
-		throw new UnsupportedOperationException(TODO.method());
-
-	}
 	
+			return nesteledige < innleggstabell.length;
+		
+	}
+
 	public boolean leggTil(Innlegg innlegg) {
-
-		throw new UnsupportedOperationException(TODO.method());
+		boolean leggtil = finnes(innlegg);
+		if (leggtil && nesteledige < innleggstabell.length ) {
+			innleggstabell[nesteledige] = innlegg;
+			nesteledige++;
+			return true;
+		}else {
+			
+		return false;
+		
+		}
 	}
 	
+	@Override
 	public String toString() {
-		throw new UnsupportedOperationException(TODO.method());
+		
+		return "Blogg [innleggstabell=" + Arrays.toString(innleggstabell) + ", nesteledige=" + nesteledige + ", antall=" + antall + "]";
 	}
 
 	// valgfrie oppgaver nedenfor
